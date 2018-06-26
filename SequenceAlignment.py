@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[41]:
+# In[11]:
 
 
 import time
@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-# In[42]:
+# In[7]:
 
 
 # Algorithm 1 based on Divide-and Conquer
@@ -32,7 +32,7 @@ def opt1(x,y):
     return opt(0,0)
 
 
-# In[50]:
+# In[8]:
 
 
 # Algorithm 2 based on DB
@@ -96,7 +96,7 @@ def opt2(x,y):
     return A[0][0].cost, A1, A2
 
 
-# In[ ]:
+# In[17]:
 
 
 # sequence alignment using two algorithms
@@ -118,43 +118,48 @@ print("Sequence length of X: " + str(m) + "   Sequence length of Y: " + str(n)+ 
 start = time.time()
 cost,A1,A2 = opt2(x,y)
 end = time.time()
-t2.append(end-start)
 print("Sequence length of X: " + str(m) + "   Sequence length of Y: " + str(n) + "   Runtime of Algorithm 2(s): " + str(end-start)+ "   cost: "+ str(cost))
 print("the optimal alignment of the two sequences is: ")
 print(A1)
 print(A2)
 
 
-# In[11]:
+# In[16]:
 
 
 # compare Algorithm 2 with Algorithm 1
 
-'''
-s = ['A','T','C','G']
+
+'''s = ['A','T','C','G']
 n = [3,4,5,6,7,8,9,10,11,12,13,14]
 t1=[]
 t2=[]
+t1_sum=0
+t2_sum=0
+cost_1=0
+cost_2=0
+
 for i in range(len(n)):
-    X = ""
-    Y = ""
-    for j in range(n[i]):
-        X = X + s[random.randint(0,3)]
-        Y = Y + s[random.randint(0,3)]
+    for k in range(5):
+        X = ""
+        Y = ""
+        for j in range(n[i]):
+            X = X + s[random.randint(0,3)]
+            Y = Y + s[random.randint(0,3)]
+
+        start = time.time()
+        cost_1 = opt1(X,Y)
+        end = time.time()
+        t1_sum+=end-start
+        start = time.time()
+        (cost_2,A1,A2) = opt2(X,Y)
+        end = time.time()
+        t2_sum+=end-start
     
-    start = time.time()
-    cost = opt1(X,Y)
-    end = time.time()
-    t1.append(end-start)
-    print("Sequence length: " + str(n[i]) + "   Runtime of Algorithm 1(s): " + str(end-start) + "   cost: "+ str(cost))
-    
-    
-    start = time.time()
-    (cost,A1,A2) = opt2(X,Y)
-    end = time.time()
-    t2.append(end-start)
-    print("Sequence length: " + str(n[i]) + "   Runtime of Algorithm 2(s): " + str(end-start)+ "   cost: "+ str(cost))
-    
+    t1.append(t1_sum/5)
+    print("Sequence length: " + str(n[i]) + "   Runtime of Algorithm 1(s): " + str(t1_sum/5) + "   cost: "+ str(cost_1))
+    t2.append(t2_sum/5)
+    print("Sequence length: " + str(n[i]) + "   Runtime of Algorithm 2(s): " + str(t2_sum/5)+ "   cost: "+ str(cost_2))
     print()
 
 
@@ -166,6 +171,5 @@ plot2=plt.plot(n,t2_o,color="blue", linewidth=0.5, label='Algorithm 2')
 plt.xlabel("length of sequences") 
 plt.ylabel("runtime")
 plt.legend(loc='upper left') 
-plt.show()
-'''
+plt.show()'''
 
